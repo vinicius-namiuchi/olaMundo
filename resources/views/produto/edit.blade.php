@@ -1,7 +1,7 @@
 @extends('layout.app')
-@section('title', 'Altera o produto:'.$produto->titulo)
+@section('title', 'Alterar o produto:'.$produto->titulo)
 @section('content')
-    <h1>Altera o produto: {{$produto->titulo}}</h1>
+    <h1>Alterar o produto: {{$produto->titulo}}</h1>
     @if(count($errors) > 0)
         <div class="alert alert-danger">
             <ul>
@@ -12,11 +12,11 @@
         </div>
     @endif
     @if(Session::has('mensagem'))
-        <div class="alert alert-danger">
+        <div class="alert alert-success">
             {{Session::get('mensagem')}}
         </div>
     @endif
-    {{Form::open(['route'=>['produtos.update','$produto->id'],'method'=>'PUT'])}}
+    {{Form::open(['route'=>['produtos.update',$produto->id],'enctype'=>'multipart/form-data','method'=>'PUT'])}}
     {{Form::label('referencia','Referência',['class'=>'prettyLabels'])}}
     {{Form::text('referencia',$produto->referencia,['class'=>'form-control','required','placeholder'=>'Referência'])}}
     {{Form::label('titulo','Título',['class'=>'prettyLabels'])}}
@@ -25,6 +25,8 @@
     {{Form::textarea('descricao',$produto->descricao,['rows'=>3,'class'=>'form-control','required','placeholder'=>'Descrição'])}}
     {{Form::label('preco','Preço')}}
     {{Form::text('preco',$produto->preco,['class'=>'form-control','required','placeholder'=>'Preço'])}}
+    {{Form::label('fotoproduto','Foto')}}
+    {{Form::file('fotoproduto',['class'=>'form-control','id'=>'fotoproduto'])}}
     <br />
     {{Form::submit('Alterar',['class'=>'btn btn-primary'])}}
     {{Form::close()}}

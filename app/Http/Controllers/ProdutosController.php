@@ -49,6 +49,11 @@ class ProdutosController extends Controller
             'referencia' => 'required|min:3',
             'titulo' => 'required|min:3',
         ]);
+        if($request->hasFile('fotoproduto')){
+            $imagem = $request->file('fotoproduto');
+            $nomearquivo = md5($id) .".". $imagem->getClientOriginalExtension();
+            $request->file('fotoproduto')->move(public_path('./img/produtos/'),$nomearquivo);
+        }
         $produto->referencia = $request->input('referencia');
         $produto->titulo = $request->input('titulo');
         $produto->descricao = $request->input('descricao');
