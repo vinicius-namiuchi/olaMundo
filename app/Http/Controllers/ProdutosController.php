@@ -62,4 +62,10 @@ class ProdutosController extends Controller
         Session::flash('mensagem','Produto alterado com sucesso.');
         return redirect()->back();
     }
+    public function destroy($id){
+        $produto = Produto::find($id);
+        $produto->delete();
+        Session::flash('mensagem', 'Produto excluído com sucesso.');
+        return redirect()->back();
+    }
 }
